@@ -4,6 +4,7 @@
   "description": "cuybot is the best learning bot",
   "main": "main.js",
   "scripts": {
+    "start": "node main.js",
     "dev": "nodemon main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,7 +19,10 @@
     "nodemon": "^3.1.10"
   },
   "dependencies": {
+    "body-parser": "^2.2.0",
+    "cross-env": "^10.1.0",
     "dotenv": "^17.2.3",
+    "express": "^5.1.0",
     "node-telegram-bot-api": "^0.66.0"
   }
 }
