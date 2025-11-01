@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 const TOKEN = process.env.TELEGRAM_TOKEN;
 const SERVER_URL = process.env.SERVER_URL;
 
-const cuybot = new CuyBot(TOKEN, { webhook: true });
+const cuybot = new CuyBot(TOKEN, { webHook: true });
 
 const webhookPath = `/bot${TOKEN}`;
 const webhookUrl = `${SERVER_URL}${webhookPath}`;
