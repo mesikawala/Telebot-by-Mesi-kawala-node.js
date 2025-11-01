@@ -3,26 +3,21 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const CuyBot = require("./app/CuyBot");
 require("dotenv").config();
-const TelegramBot = require('node-telegram-bot-api');
 
 const app = express();
 app.use(bodyParser.json());
 
-// ambil token dan server url dari .env
 const TOKEN = process.env.TELEGRAM_TOKEN;
 const SERVER_URL = process.env.SERVER_URL;
 
-// buat instance bot tanpa polling
-const cuybot = new CuyBot(TOKEN, { polling: true });
+const cuybot = new CuyBot(TOKEN, { webhook: true });
 
-// ======== set webhook ========
 const webhookPath = `/bot${TOKEN}`;
 const webhookUrl = `${SERVER_URL}${webhookPath}`;
 
-cuybot.setWebHook(`${SERVER_URL}`);
+cuybot.setWebHook(webhookUrl);
 
-// endpoint webhook untuk terima update dari Telegram
-app.post("/", (req, res) => {
+app.post(webhookPath, (req, res) => {
   cuybot.processUpdate(req.body);
   res.sendStatus(200);
 });
