@@ -1,4 +1,5 @@
 const commands = {
+  start: /\/start/,
   greeting: /^!halo/,
   follow: /^!follow(.+)/,
   quote: /^!quote$/,
@@ -6,6 +7,8 @@ const commands = {
   help: /^!help$/,
   introduction: /^!name$/,
   quake: /^!quake$/,
+  foto: /^!foto$/i,
+  Hot: /^!hot$/,
 };
 
 module.exports = commands;

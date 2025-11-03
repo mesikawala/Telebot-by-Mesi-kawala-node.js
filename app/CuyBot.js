@@ -1,6 +1,11 @@
 const TelegramBot = require("node-telegram-bot-api");
 const commands = require("../libs/commands");
-const { helpTextMessage, invalidCommandMessage } = require("../libs/constant");
+// const Photo = require("../RandomPhoto");
+const {
+  helpTextMessage,
+  invalidCommandMessage,
+  fotoList,
+} = require("../libs/constant");
 class CuyBot extends TelegramBot {
   constructor(token, options) {
     super(token, options);
@@ -24,20 +29,30 @@ class CuyBot extends TelegramBot {
           },
         });
         this.on("callback_query", (callback) => {
-          const callbackcName = callback.data
+          const callbackcName = callback.data;
           if (callbackcName == "go_to_help") {
-            this.sendMessage(callback.from.id, helpTextMessage)
+            this.sendMessage(callback.from.id, helpTextMessage);
           }
-        })
+        });
         console.log(
           `Invalid command Executed By ${data.from.username}\nText => ${data.text}`
         );
       }
     });
   }
+  getStart() {
+    this.onText(/\/start/, async (data) => {
+      const botProfile = await this.getMe();
+      this.sendMessage(
+        data.chat.id,
+        `Haloooo nama ku ${botProfile.first_name}, senang bertemu denganmu! Ada yang bisa aku bantu?`
+      );
+    });
+  }
   getSticker() {
     this.on("sticker", (data) => {
       console.log("getSticker Executed By " + data.from.username);
+      this.sendMessage(data.from.id, data.sticker.emoji);
       this.sendMessage(data.from.id, data.sticker.emoji);
     });
   }
@@ -157,6 +172,99 @@ Waktu: ${Jam}
           data.from.id,
           "Maaf, ada kesalahan saat mengambil data dari BMKG 😿"
         );
+      }
+    });
+  }
+  getRandomFoto() {
+    this.onText(commands.foto, (data) => {
+      const chatId = data.from.id;
+
+      const randomIndex = Math.floor(Math.random() * fotoList.length);
+      const selected = fotoList[randomIndex];
+
+      console.log(`Random Foto Executed by ${data.from.username}`);
+
+      this.sendPhoto(chatId, selected, {
+        caption: "nih foto random",
+      });
+    });
+  }
+  getHot() {
+    this.onText(commands.Hot, (data) => {
+      console.log(`Random Hot Executed by ${data.from.username}`);
+      this.sendMessage(data.from.id, "apakah kamu di atas 18 tahun?", {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: "iya",
+                callback_data: "Hot_Yes",
+              },
+              {
+                text: "tidak",
+                callback_data: "Hot_No",
+              },
+            ],
+          ],
+        },
+      });
+    });
+  }
+  getVideo() {
+    this.on("callback_query", (callback) => {
+      const chatId = callback.from.id;
+      const data = callback.data;
+      const rickroll = "https://files.catbox.moe/w9zgad.mp4";
+
+      if (data === "Hot_Yes") {
+        console.log(`Random Hot Yes Executed by ${data.from.username}`);
+        this.sendMessage(
+          chatId,
+          "pilih yang mana? masing masing durasi 10 menit",
+          {
+            reply_markup: {
+              inline_keyboard: [
+                [
+                  { text: "SMP", callback_data: "SMP" },
+                  { text: "SMA", callback_data: "SMA" },
+                  { text: "di hotel", callback_data: "di_hotel" },
+                ],
+              ],
+            },
+          }
+        );
+        return;
+      }
+      if (data === "Hot_No") {
+        console.log(`Random Hot No Executed by ${data.from.username}`);
+        this.sendMessage(
+          chatId,
+          "umur kamu belum 18 tahun ke atas berarti kamu belum bisa"
+        );
+        return;
+      }
+
+      if (data === "SMP") {
+        console.log(`Random SMP Executed by ${data.from.username}`);
+        this.sendVideo(chatId, rickroll, {
+          caption: "prannnkkkkkkkkk",
+          parse_mode: "Markdown",
+        });
+      }
+      if (data === "SMA") {
+        console.log(`Random SMA Executed by ${data.from.username}`);
+        S;
+        this.sendVideo(chatId, rickroll, {
+          caption: "prannnkkkkkkkkk",
+          parse_mode: "Markdown",
+        });
+      }
+      if (data === "di_hotel") {
+        console.log(`Random di hotel Executed by ${data.from.username}`);
+        this.sendMessage(chatId, rickroll, {
+          caption: "prannnkkkkkkkkk",
+          parse_mode: "Markdown",
+        });
       }
     });
   }

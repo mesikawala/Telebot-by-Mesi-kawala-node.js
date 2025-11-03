@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 const TOKEN = process.env.TELEGRAM_TOKEN;
 const SERVER_URL = process.env.SERVER_URL;
 
-const cuybot = new CuyBot(TOKEN, { webHook: true });
+const cuybot = new CuyBot(TOKEN, { webhHook: true });
 
 const webhookPath = `/bot${TOKEN}`;
 const webhookUrl = `${SERVER_URL}${webhookPath}`;
@@ -24,6 +24,7 @@ app.post(webhookPath, (req, res) => {
 // ======== fungsi utama ========
 const main = () => {
   console.log("Checking features...");
+  cuybot.getStart();
   cuybot.getSticker();
   cuybot.getGreeting();
   cuybot.getFollow();
@@ -32,6 +33,9 @@ const main = () => {
   cuybot.getIntroduction();
   cuybot.getHelp();
   cuybot.getQuake();
+  cuybot.getRandomFoto();
+  cuybot.getHot();
+  cuybot.getVideo();
   console.log("Features ready!");
 };
 
