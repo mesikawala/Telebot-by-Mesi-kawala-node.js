@@ -1,11 +1,11 @@
 const TelegramBot = require("node-telegram-bot-api");
 const commands = require("../libs/commands");
-// const Photo = require("../RandomPhoto");
 const {
   helpTextMessage,
   invalidCommandMessage,
   fotoList,
 } = require("../libs/constant");
+
 class CuyBot extends TelegramBot {
   constructor(token, options) {
     super(token, options);
@@ -43,6 +43,7 @@ class CuyBot extends TelegramBot {
   getStart() {
     this.onText(/\/start/, async (data) => {
       const botProfile = await this.getMe();
+      console.log("start Executed By " + data.from.username);
       this.sendMessage(
         data.chat.id,
         `Haloooo nama ku ${botProfile.first_name}, senang bertemu denganmu! Ada yang bisa aku bantu?`
@@ -245,23 +246,23 @@ Waktu: ${Jam}
       }
 
       if (data === "SMP") {
-        console.log(`Random SMP Executed by ${data.from.username}`);
+        console.log(`Random SMP Executed by ${callback.from.username}`);
         this.sendVideo(chatId, rickroll, {
           caption: "prannnkkkkkkkkk",
           parse_mode: "Markdown",
         });
       }
       if (data === "SMA") {
-        console.log(`Random SMA Executed by ${data.from.username}`);
-        S;
+        console.log(`Random SMA Executed by ${callback.from.username}`);
+        ;
         this.sendVideo(chatId, rickroll, {
           caption: "prannnkkkkkkkkk",
           parse_mode: "Markdown",
         });
       }
       if (data === "di_hotel") {
-        console.log(`Random di hotel Executed by ${data.from.username}`);
-        this.sendMessage(chatId, rickroll, {
+        console.log(`Random di hotel Executed by ${callback.from.username}`);
+        this.sendVideo(chatId, rickroll, {
           caption: "prannnkkkkkkkkk",
           parse_mode: "Markdown",
         });
