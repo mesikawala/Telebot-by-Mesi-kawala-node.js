@@ -41,7 +41,7 @@ class CuyBot extends TelegramBot {
     });
   }
   getStart() {
-    this.onText(/\/start/, async (data) => {
+    this.onText(commands.start, async (data) => {
       const botProfile = await this.getMe();
       console.log("start Executed By " + data.from.username);
       this.sendMessage(
