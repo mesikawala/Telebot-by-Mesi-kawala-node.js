@@ -218,7 +218,7 @@ Waktu: ${Jam}
       const rickroll = "https://files.catbox.moe/w9zgad.mp4";
 
       if (data === "Hot_Yes") {
-        console.log(`Random Hot Yes Executed by ${data.from.username}`);
+        console.log(`Random Hot Yes Executed by ${callback.from.username}`);
         this.sendMessage(
           chatId,
           "pilih yang mana? masing masing durasi 10 menit",
@@ -237,7 +237,7 @@ Waktu: ${Jam}
         return;
       }
       if (data === "Hot_No") {
-        console.log(`Random Hot No Executed by ${data.from.username}`);
+        console.log(`Random Hot No Executed by ${callback.from.username}`);
         this.sendMessage(
           chatId,
           "umur kamu belum 18 tahun ke atas berarti kamu belum bisa"
